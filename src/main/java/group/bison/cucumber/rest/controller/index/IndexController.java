@@ -1,4 +1,4 @@
-package group.bison.cucumber.controller.index;
+package group.bison.cucumber.rest.controller.index;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

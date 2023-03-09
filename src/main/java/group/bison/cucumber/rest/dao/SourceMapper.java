@@ -1,4 +1,4 @@
-package group.bison.cucumber.dao;
+package group.bison.cucumber.rest.dao;
 
 import org.springframework.stereotype.Repository;
 

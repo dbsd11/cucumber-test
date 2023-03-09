@@ -1,4 +1,4 @@
-package group.bison.cucumber.service;
+package group.bison.cucumber.rest.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import group.bison.cucumber.dao.SourceMapper;
 import group.bison.cucumber.domain.entity.SourceEntity;
 import group.bison.cucumber.domain.model.vo.SourceVO;
+import group.bison.cucumber.rest.dao.SourceMapper;
 
 @Service
 public class SourceService {
