@@ -1,4 +1,4 @@
-package group.bison.cucumber.test.search.search;
+package group.bison.cucumber.test.demo.search;
 
 import net.serenitybdd.screenplay.targets.Target;
 

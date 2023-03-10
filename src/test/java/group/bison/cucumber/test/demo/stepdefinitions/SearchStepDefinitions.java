@@ -1,13 +1,13 @@
-package group.bison.cucumber.test.search.stepdefinitions;
+package group.bison.cucumber.test.demo.stepdefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.ensure.Ensure;
-import group.bison.cucumber.test.search.navigation.NavigateTo;
-import group.bison.cucumber.test.search.search.LookForInformation;
-import group.bison.cucumber.test.search.search.WikipediaArticle;
+import group.bison.cucumber.test.demo.navigation.NavigateTo;
+import group.bison.cucumber.test.demo.search.LookForInformation;
+import group.bison.cucumber.test.demo.search.WikipediaArticle;
 
 public class SearchStepDefinitions {
 

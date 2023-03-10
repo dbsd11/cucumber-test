@@ -1,4 +1,4 @@
-package group.bison.cucumber.test.search.navigation;
+package group.bison.cucumber.test.demo.navigation;
 
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;

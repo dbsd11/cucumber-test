@@ -1,4 +1,4 @@
-package group.bison.cucumber.test.search.stepdefinitions;
+package group.bison.cucumber.suite.parameter;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
@@ -6,7 +6,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
-public class ParameterDefinitions {
+public class DemoUserParameterDefinitions {
 
     @ParameterType(".*")
     public Actor actor(String actorName) {

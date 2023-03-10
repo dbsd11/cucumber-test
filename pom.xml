@@ -26,11 +26,9 @@
         <oval.version>1.85</oval.version>
         <promethus.version>0.16.0</promethus.version>
 
-        <selenium.version>3.141.59</selenium.version>
+        <selenium.version>4.8.1</selenium.version>
         <htmlunit.version>2.47.1</htmlunit.version>
-        <serenity.version>3.0.5</serenity.version>
-        <serenity.maven.version>3.0.5</serenity.maven.version>
-        <serenity.cucumber.version>3.0.5</serenity.cucumber.version>
+        <serenity.version>3.6.12</serenity.version>
         <jupiter.version>5.9.2</jupiter.version>
         <rest-assured.version>4.5.0</rest-assured.version>
         <groovy.version>3.0.15</groovy.version>
@@ -146,11 +144,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>3.12.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -242,7 +241,7 @@
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
-            <version>${serenity.cucumber.version}</version>
+            <version>${serenity.version}</version>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
@@ -268,7 +267,11 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-junit</artifactId>
             <version>${serenity.version}</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
@@ -292,12 +295,6 @@
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <version>${jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.6.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -342,10 +339,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <version>3.0.0-M9</version>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -376,7 +370,7 @@
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
-                <version>${serenity.maven.version}</version>
+                <version>${serenity.version}</version>
                 <configuration>
                     <tags>${tags}</tags>
                 </configuration>

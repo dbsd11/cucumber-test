@@ -1,4 +1,4 @@
-package group.bison.cucumber.test.search.navigation;
+package group.bison.cucumber.test.demo.navigation;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;

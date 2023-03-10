@@ -1,18 +1,16 @@
 package group.bison.cucumber.suite.source.news.navigation;
 
-import net.serenitybdd.core.pages.PageObject;
-import net.serenitybdd.screenplay.Performable;
+import io.cucumber.java.en.When;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Open;
-import net.thucydides.core.annotations.DefaultUrl;
 
 public class NavigateToWebsite {
 
-    public static Performable theWikipediaHomePage() {
-        return Task.where("{0} opens the Wikipedia home page",
-                Open.browserOn().the(WikipediaHomePage.class));
+    @When("{actor} go to website {string}")
+    public void go2Website(Actor actor, String website) {
+        actor.attemptsTo(Task.where("{0} go to website '" + website + "'",
+                Open.url(website)));
     }
 
-    @DefaultUrl("https://wikipedia.org")
-    public static class WikipediaHomePage extends PageObject {}
 }
