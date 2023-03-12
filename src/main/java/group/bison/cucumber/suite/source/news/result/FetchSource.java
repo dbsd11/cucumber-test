@@ -9,8 +9,8 @@ public class FetchSource {
 
     @Then("{actor} fetch source success")
     public void fetchSourceSuccess(Actor actor) {
-        actor.attemptsTo(Ensure.that(Target.the("body").locatedBy("/html/body")).isDisplayed());
-        
-        actor.attemptsTo(Fetch, null);
+        actor.attemptsTo(Ensure.that(Target.the("a").locatedBy("//a")).isDisplayed());
+        // ((WebElement)null).
+        // actor.attemptsTo(Fetch, null);
     }
 }

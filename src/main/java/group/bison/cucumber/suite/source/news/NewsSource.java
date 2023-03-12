@@ -73,8 +73,4 @@ public class NewsSource implements Callable {
 
         return null;
     }
-
-    public static void main(String[] args) throws Exception {
-        new NewsSource().call();
-    }
 }
