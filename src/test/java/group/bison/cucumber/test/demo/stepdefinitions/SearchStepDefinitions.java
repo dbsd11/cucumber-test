@@ -26,6 +26,9 @@ public class SearchStepDefinitions {
     @Then("{actor} should see information about {string}")
     public void should_see_information_about(Actor actor, String term) {
         actor.attemptsTo(
+                Ensure.that(WikipediaArticle.HEADING).isDisplayed()
+        );
+        actor.attemptsTo(
                 Ensure.that(WikipediaArticle.HEADING).hasText(term)
         );
     }

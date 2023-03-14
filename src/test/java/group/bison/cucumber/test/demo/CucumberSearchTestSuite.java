@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
+        glue = {"classpath:/group/bison/cucumber"},
         plugin = {"pretty"},
         features = "classpath:features/search"
 )
