@@ -16,6 +16,7 @@ import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.actions.Switch;
 import net.serenitybdd.screenplay.ensure.Ensure;
 import net.serenitybdd.screenplay.targets.Target;
 
@@ -32,6 +33,7 @@ public class SearchForInformation {
                 Enter.theValue(terms)
                         .into(Target.the("search field").locatedBy(selector))
                         .thenHit(Keys.ENTER)));
+        actor.attemptsTo(Switch.toTheOtherWindow());
         actor.remember(KEY_SEARCH_TERM, terms);
     }
 

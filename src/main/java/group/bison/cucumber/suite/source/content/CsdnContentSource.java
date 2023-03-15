@@ -1,4 +1,4 @@
-package group.bison.cucumber.suite.source.news;
+package group.bison.cucumber.suite.source.content;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,19 +22,19 @@ import io.cucumber.core.runtime.TimeServiceEventBus;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.webdriver.Configuration;
 
-public class BaiduNewsSource extends NewsSource {
+public class CsdnContentSource extends ContentSource {
     
-    public BaiduNewsSource(SourceVO sourceVO) {
+    public CsdnContentSource(SourceVO sourceVO) {
         super(sourceVO);
     }
 
     @Override
     public Object call() throws Exception {
-        String website = "https://www.baidu.com";
+        String website = "https://www.csdn.net/";
 
-        String searchTerm = "hello";
+        String searchTerm = "k8s";
 
-        String searchFormSelector = "#ww";
+        String searchFormSelector = "#toolbar-search-input";
 
         EventBus eventBus = new TimeServiceEventBus(Clock.systemUTC(), UUID::randomUUID);
 
@@ -47,23 +47,23 @@ public class BaiduNewsSource extends NewsSource {
 
                 @Override
                 public URI getUri() {
-                    return URI.create("file:///tmp/search-news");
+                    return URI.create("file:///tmp/search-contents");
                 }
 
                 @Override
                 public InputStream getInputStream() throws IOException {
-                    String featureStr = "Feature: Search News\n" + //
+                    String featureStr = "Feature: Search Contents\n" + //
                                                 "\n" + //
-                                                "  Scenario: Find Baidu Search Rank List By Keyword\n" + //
+                                                "  Scenario: Find Csdn Search Rank List By Keyword\n" + //
                                                 "    Given Sergey opened browser\n" + //
                                                 "    When he go to website \"${var}\"\n".replace("${var}", website) + //
                                                 "    When he search for \"${var1}\" in \"${var2}\"\n".replace("${var1}", searchTerm).replace("${var2}", searchFormSelector) + //
                                                 "    Then he find search rank list\n" + //
                                                  "\n" + //
-                                                "  Scenario: Search Baidu News\n" + //
+                                                "  Scenario: Search Csdn Contents\n" + //
                                                 "    Given Sergey have found search rank list\n" + //
                                                 "    When he click link at 0\n" + //
-                                                "    Then he fetch source success\n" + //
+                                                "    Then he fetch content text success\n" + //
                                                 "";
                     return new ByteArrayInputStream(featureStr.getBytes());
                 }
