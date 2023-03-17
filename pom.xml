@@ -167,6 +167,13 @@
             <version>0.6.0</version>
         </dependency>
 
+        <!-- rss -->
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
         <!--promethus-->
         <dependency>
             <groupId>io.prometheus</groupId>
