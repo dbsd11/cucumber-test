@@ -1,34 +1,21 @@
 package group.bison.cucumber.test.source.news;
 
-import java.lang.reflect.Field;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.context.annotation.Import;
 
-import group.bison.cucumber.common.tools.PersistTool;
 import group.bison.cucumber.suite.source.news.BaiduNewsSource;
+import group.bison.cucumber.test.storage.StorageTestSuite;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(MockitoJUnitRunner.Silent.class)
+@Import(StorageTestSuite.class)
 public class NewsSourceTestSuite {
     
     @Test
     public void test() throws Exception {
-        PersistTool persistTool = new PersistTool();
-        persistTool.afterPropertiesSet();
-
-        Field redisTemplateField = PersistTool.class.getDeclaredField("redisTemplate");
-        redisTemplateField.setAccessible(true);
-
-        LettuceConnectionFactory connectionFactory = new LettuceConnectionFactory(new RedisStandaloneConfiguration());
-        connectionFactory.afterPropertiesSet();
-        redisTemplateField.set(persistTool, new StringRedisTemplate(connectionFactory));
-
         new BaiduNewsSource(null).call();
     }
 
