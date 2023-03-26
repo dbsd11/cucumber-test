@@ -34,7 +34,7 @@ public class BaiduNewsSource extends NewsSource {
 
         String searchTerm = "hello";
 
-        String searchFormSelector = "#ww";
+        String searchFormSelector = "#kw";
 
         EventBus eventBus = new TimeServiceEventBus(Clock.systemUTC(), UUID::randomUUID);
 

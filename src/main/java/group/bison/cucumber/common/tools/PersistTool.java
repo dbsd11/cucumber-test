@@ -94,4 +94,8 @@ public class PersistTool implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         instance = this;
     }
+
+    public static PersistTool getInstance() {
+        return instance;
+    }
 }
