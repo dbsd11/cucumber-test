@@ -12,7 +12,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableWebFlux
 @EnableCaching
-@MapperScan("group.bison.cucumber.rest.dao")
+@MapperScan("group.bison.cucumber.rest.repository")
 public class AutoQAApplication {
 
     public static void main(String[] args) throws Exception {
