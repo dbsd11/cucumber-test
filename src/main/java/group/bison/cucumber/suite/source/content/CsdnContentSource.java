@@ -8,9 +8,8 @@ import java.time.Clock;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
 
-import group.bison.cucumber.domain.model.vo.SourceVO;
+import group.bison.cucumber.domain.source.entity.SourceEntity;
 import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.feature.FeatureParser;
 import io.cucumber.core.gherkin.Feature;
@@ -24,7 +23,7 @@ import net.thucydides.core.webdriver.Configuration;
 
 public class CsdnContentSource extends ContentSource {
     
-    public CsdnContentSource(SourceVO sourceVO) {
+    public CsdnContentSource(SourceEntity sourceVO) {
         super(sourceVO);
     }
 

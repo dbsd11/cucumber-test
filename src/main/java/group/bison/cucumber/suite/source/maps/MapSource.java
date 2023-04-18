@@ -2,13 +2,13 @@ package group.bison.cucumber.suite.source.maps;
 
 import java.util.concurrent.Callable;
 
-import group.bison.cucumber.domain.model.vo.SourceVO;
+import group.bison.cucumber.domain.source.entity.SourceEntity;
 
 public abstract class MapSource implements Callable {
     
-    private SourceVO sourceVO;
+    private SourceEntity sourceVO;
 
-    public MapSource(SourceVO sourceVO) {
+    public MapSource(SourceEntity sourceVO) {
         this.sourceVO = sourceVO;
     }
 

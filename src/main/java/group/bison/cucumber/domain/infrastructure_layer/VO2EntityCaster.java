@@ -1,20 +1,20 @@
-package group.bison.cucumber.domain;
+package group.bison.cucumber.domain.infrastructure_layer;
 
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import group.bison.cucumber.domain.abstract_layer.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import group.bison.cucumber.common.utils.ClassCastUtil;
-import group.bison.cucumber.domain.model.vo.BaseVO;
 
-public interface Entity2DOCaster<R> {
-    Logger log = LoggerFactory.getLogger(Entity2DOCaster.class);
+public interface VO2EntityCaster<R> {
+    Logger log = LoggerFactory.getLogger(VO2EntityCaster.class);
     
-    default R tryCast2VO() {
+    default R tryCast2Entity() {
         R castObj = null;
         try {
             Class<R> objClass = null;
@@ -24,26 +24,26 @@ public interface Entity2DOCaster<R> {
                     continue;
                 }
 
-                if(!((Class)((ParameterizedType)interfaceI).getRawType()).isAssignableFrom(Entity2DOCaster.class)) {
+                if(!((Class)((ParameterizedType)interfaceI).getRawType()).isAssignableFrom(VO2EntityCaster.class)) {
                     continue;
                 }
 
                 objClass = (Class<R>)((ParameterizedType)interfaceI).getActualTypeArguments()[0];
             }
             
-            if(BaseVO.class.isAssignableFrom(objClass)) {
-                BaseVO baseVo = (BaseVO)objClass.newInstance();
+            if(BaseEntity.class.isAssignableFrom(objClass)) {
+                BaseEntity baseEntity = (BaseEntity)objClass.newInstance();
                 Field[] entityFields = this.getClass().getDeclaredFields();
                 for(Field field : entityFields) {
                     field.setAccessible(true);
-                    baseVo.getFieldMap().put(baseVo.generateOrGetFieldKey(field.getName()), field.get(this));
+                    baseEntity.getFieldMap().put(baseEntity.generateOrGetFieldKey(field.getName()), field.get(this));
                 }
-                castObj = (R)baseVo;
+                castObj = (R) baseEntity;
             } else {
                 castObj = ClassCastUtil.cast(this, objClass);
             }
         } catch (Exception e) {
-            log.error("try cast2vo failed", e);
+            log.error("try cast2entity failed", e);
         }
         return castObj;
     }

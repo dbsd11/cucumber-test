@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import group.bison.cucumber.domain.model.vo.SourceVO;
+import group.bison.cucumber.domain.source.entity.SourceEntity;
 import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.feature.FeatureParser;
 import io.cucumber.core.gherkin.Feature;
@@ -23,7 +23,7 @@ import net.thucydides.core.webdriver.Configuration;
 
 public class BaiduMapSource extends MapSource {
     
-    public BaiduMapSource(SourceVO sourceVO) {
+    public BaiduMapSource(SourceEntity sourceVO) {
         super(sourceVO);
     }
 

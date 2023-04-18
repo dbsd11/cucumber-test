@@ -1,5 +1,6 @@
 package group.bison.cucumber;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +8,11 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableWebFlux
 @EnableCaching
-@MapperScan("group.bison.cucumber.dao")
+@MapperScan("group.bison.cucumber.rest.repository")
 public class AutoQAApplication {
 
     public static void main(String[] args) throws Exception {

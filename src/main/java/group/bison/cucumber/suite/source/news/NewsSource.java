@@ -2,13 +2,13 @@ package group.bison.cucumber.suite.source.news;
 
 import java.util.concurrent.Callable;
 
-import group.bison.cucumber.domain.model.vo.SourceVO;
+import group.bison.cucumber.domain.source.entity.SourceEntity;
 
 public abstract class NewsSource implements Callable {
     
-    private SourceVO sourceVO;
+    private SourceEntity sourceVO;
 
-    public NewsSource(SourceVO sourceVO) {
+    public NewsSource(SourceEntity sourceVO) {
         this.sourceVO = sourceVO;
     }
 

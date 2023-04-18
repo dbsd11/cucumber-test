@@ -1,4 +1,6 @@
-package group.bison.cucumber.domain.model.vo;
+package group.bison.cucumber.domain.abstract_layer;
+
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -7,26 +9,24 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import org.springframework.util.CollectionUtils;
-
-public abstract class BaseVO implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static Map<String, FieldKey> baseVoFieldKeyMap = new HashMap();
+    private static Map<String, FieldKey> baseEntityFieldKeyMap = new HashMap();
 
     private int version;
 
     private transient FieldMap fieldMap;
 
     public static FieldKey generateOrGetFieldKey(Object key) {
-        return baseVoFieldKeyMap.compute(String.valueOf(key), (fieldName, fieldKey) -> fieldKey != null ? fieldKey : new FieldKey(key) );
+        return key instanceof FieldKey ? (FieldKey) key : baseEntityFieldKeyMap.compute(String.valueOf(key), (fieldName, fieldKey) -> fieldKey != null ? fieldKey : new FieldKey(key));
     }
 
-    public BaseVO() {
+    public BaseEntity() {
         this.fieldMap = new FieldMap(new HashMap<>());
     }
 
-    public BaseVO(Map<FieldKey, Object> fieldMap) {
+    public BaseEntity(Map<FieldKey, Object> fieldMap) {
         this.fieldMap = new FieldMap(fieldMap);
     }
 
@@ -40,6 +40,10 @@ public abstract class BaseVO implements Serializable {
 
     public FieldMap getFieldMap() {
         return needSerialzeFieldMap() ? fieldMap : null;
+    }
+
+    public Object getFieldValue(Object key) {
+        return fieldMap.get(generateOrGetFieldKey(key));
     }
 
     protected boolean needSerialzeFieldMap() {
@@ -96,7 +100,7 @@ public abstract class BaseVO implements Serializable {
 
         @Override
         public void putAll(Map<? extends FieldKey, ? extends Object> var1) {
-            if(CollectionUtils.isEmpty(var1)) {
+            if (CollectionUtils.isEmpty(var1)) {
                 return;
             }
 
@@ -106,7 +110,7 @@ public abstract class BaseVO implements Serializable {
 
             super.putAll(var1);
         }
-        
+
         @Override
         public Object remove(Object var1) {
             Object obj = super.remove(var1);
