@@ -28,7 +28,7 @@ public class SearchForGoods {
         Target goodsLiTarget = Target.the("J_goodsList").locatedBy("//div[@id=\"J_goodsList\"]/ul/li[*]");
         actor.attemptsTo(Ensure.that(goodsLiTarget).isEnabled());
         
-        List<Goods> goofs = new LinkedList<>();
+        List<Goods> goodList = new LinkedList<>();
         actor.attemptsTo(PerformOn.eachMatching(goodsLiTarget, (webElement -> {
             try {
                 String shopUrl = webElement.findBy("//div[@class=\"p-img\"]/a").getAttribute("href");
@@ -36,14 +36,16 @@ public class SearchForGoods {
                 String title = webElement.findBy("//div[@class=\"p-name\"]").getTextContent();
                 String price = webElement.findBy("//div[@class=\"p-price\"]").getTextContent();
                 String snapshot = webElement.getScreenshotAs(OutputType.BASE64);
+
+                log.info("find goods title {} price {}", title, price);
+
                 Goods goods = new Goods();
                 goods.setShopUrl(shopUrl);
                 goods.setImgUrl(imgUrl);
                 goods.setTitle(title);
                 goods.setPrice(price);
                 goods.setSnapshot(snapshot);
-
-                log.info("find goods title {} price {}", title, price);
+                goodList.add(goods);
             } catch (Exception e) {
                 log.warn("skip process fail <li/> ", e.getMessage());
             }
