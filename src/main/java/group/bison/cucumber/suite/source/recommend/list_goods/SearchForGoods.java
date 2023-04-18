@@ -3,6 +3,7 @@ package group.bison.cucumber.suite.source.recommend.list_goods;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.OutputType;
 
 import group.bison.cucumber.common.tools.PersistTool;
@@ -34,7 +35,9 @@ public class SearchForGoods {
                 String shopUrl = webElement.findBy("//div[@class=\"p-img\"]/a").getAttribute("href");
                 String imgUrl = webElement.findBy("//div[@class=\"p-img\"]/a/img").getAttribute("src");
                 String title = webElement.findBy("//div[@class=\"p-name\"]").getTextContent();
+                title = title.replaceAll("[\n\t\r]", " ").trim();
                 String price = webElement.findBy("//div[@class=\"p-price\"]").getTextContent();
+                price = price.replaceAll("[\n\t\r]", " ").trim();
                 String snapshot = webElement.getScreenshotAs(OutputType.BASE64);
 
                 log.info("find goods title {} price {}", title, price);
@@ -52,6 +55,6 @@ public class SearchForGoods {
         })));
         
         // storage
-        PersistTool.setObj(String.join("", "search_goods_list#", actor.getName()), goofs);
+        PersistTool.setObj(String.join("", "search_goods_list#", actor.getName()), goodList);
     }
 }
