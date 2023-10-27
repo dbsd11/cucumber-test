@@ -1,47 +1,54 @@
 package group.bison.cucumber.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.SearchStrategy;
-import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
-import org.springframework.context.annotation.Bean;
+import group.bison.netty.modules.springcontext.RootSpringContextHolder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.web.ReactivePageableHandlerMethodArgumentResolver;
-import org.springframework.web.reactive.DispatcherHandler;
-import org.springframework.web.reactive.config.ResourceHandlerRegistry;
-import org.springframework.web.reactive.config.WebFluxConfigurationSupport;
-import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.web.servlet.HandlerMapping;
 
+@Slf4j
 @Configuration
-public class GlobalWebConfig extends WebFluxConfigurationSupport {
+public class GlobalWebConfig implements ApplicationContextAware, InitializingBean {
 
-    /**
-     * init dispatch handler.
-     *
-     * @return {@link DispatcherHandler}.
-     */
+    private ApplicationContext applicationContext;
+
     @Override
-    public DispatcherHandler webHandler() {
-        return new DispatcherHandler();
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     @Override
-    protected void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
-        configurer.addCustomResolver(new ReactivePageableHandlerMethodArgumentResolver());
-    }
+    public void afterPropertiesSet() throws Exception {
+        if(RootSpringContextHolder.get()  == null || RootSpringContextHolder.get() == applicationContext) {
+            return;
+        }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-                .resourceChain(false);
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+        try {
+            ApplicationContext rootApplicationContext = RootSpringContextHolder.get();
+            DefaultListableBeanFactory rootBeanFactory = (DefaultListableBeanFactory)rootApplicationContext.getAutowireCapableBeanFactory();
 
-    @Bean
-    @ConditionalOnMissingBean(value = ErrorAttributes.class, search = SearchStrategy.CURRENT)
-    public DefaultErrorAttributes errorAttributes() {
-        return new DefaultErrorAttributes();
+            DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
+            String[] handlerMappingBeanNames = defaultListableBeanFactory.getBeanNamesForType(HandlerMapping.class);
+
+            for(String handlerMappingBeanName : handlerMappingBeanNames) {
+                HandlerMapping handlerMapping = (HandlerMapping)defaultListableBeanFactory.getBean(handlerMappingBeanName);
+                String register2RootHandlerMappingBeanName = String.join("", "cucumber_", handlerMappingBeanName);
+                if(rootBeanFactory.containsBean(register2RootHandlerMappingBeanName)) {
+                    rootBeanFactory.destroySingleton(register2RootHandlerMappingBeanName);
+                }
+                rootBeanFactory.registerSingleton(register2RootHandlerMappingBeanName, handlerMapping);
+            }
+
+            ApplicationEventMulticaster applicationEventMulticaster = rootBeanFactory.getBean(ApplicationEventMulticaster.class);
+            ContextRefreshedEvent contextRefreshedEvent = new ContextRefreshedEvent(rootApplicationContext);
+            applicationEventMulticaster.multicastEvent(contextRefreshedEvent);
+        } catch (Throwable e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }
