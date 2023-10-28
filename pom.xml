@@ -335,17 +335,20 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>6.1</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Your project must also directly depend on either logback-classic or logback-access.  For example: -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>2.0.0-alpha2</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- jackson-->
